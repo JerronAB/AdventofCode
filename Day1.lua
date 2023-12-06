@@ -7,13 +7,15 @@ input_text = '((((())))'
 
 function count_char(character,input_text)
 	local count = 0
-	for i in string.len(input_text) do
+	for i, string.len(input_text) do
  print('On iteration ' .. i)
 	if input_text[i] == character then count = count + 1
  print(count)
  end
 	end
-	-- return count
+	return count
 end
 
-count_char('(',input_text)
+opnprt = count_char('(',input_text)
+clsprt = count_char(')',input_text)
+print(opnprt - clsprt)
