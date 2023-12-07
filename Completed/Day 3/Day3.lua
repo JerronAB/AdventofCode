@@ -14,15 +14,10 @@ function move(input)
 end
 
 for i=1, #file_content do move(string.sub(file_content, i, i)) end--#file_content is equivalent to string.len(file_content)
-	--[[for _xcoord,_ycoords in pairs(visited) do 
-	for _ycoord,_ in pairs(_ycoords) do
-	print('x-coord: ' .. _xcoord .. '  y-coord: ' .. _ycoord) 
-	end 
-	end]]
 
-i = 0
+houses = 0
 for _x,_ycoords in pairs(visited) do
 	for _ycoord,_ in pairs(_ycoords) do
-	i = i + 1 end end
+	houses = houses + 1 end end
 
-print('Santa has visited ' .. i .. ' houses.') --represents number of houses (coords) hit. 
+print('Santa has visited ' .. houses .. ' houses.') --represents number of houses (coords) hit. 
