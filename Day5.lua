@@ -1,15 +1,22 @@
-function str_to_table(str)
---continue reading about metamethods; I want an efficient method by which we can iterate over strs
-end
-
+goodLines = 0
 for line in io.lines('InputDay5.txt') do
-start,finish = string.find(line, '[aeiou]')
-local letters = {}
-for i=1,#line do 
-char = string.sub(line, i, i)
-letters[char] = 1 or char + 1 --fancy operation that should count up only if it already exists (once I fix it)
-end 
+	start,finish = string.find(line, '[aeiou]')
+	local i = 0
+	local letters = {}
+	local goodString = false
+	local duplicate	= false
+	local vowelCount = 0
+	local noBadStrings = true
+	repeat 
+		i = i + 1
+		char = string.sub(line, i, i)
+		if {['a']=true;['e']=true;['i']=true;['o']=true;['u']=true;}[char] then vowelCount = vowelCount + 1 end
+		letters[char] = letters[char] + 1 or 1 --this SHOULD nil/error on the first try if that character is unused, and place 1 there when that happens
+		duplicate = (char == duplicate) or duplicate --will always return true if it's already been true once
+		goodString = duplicate and _3letters and noBadStrings
+	until goodString
+	if goodString then print(line); goodLines = goodLines + 1 end
 end
 
-require = {"duplicates (2 in row), and 3 vowels"}
+-- duplicates (2 in row), and 3 vowels
 not = {"ab","cd","pq","xy"}
