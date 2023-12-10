@@ -11,24 +11,35 @@ __tostring = function(table) end
 }]]
 --setmetatable(lightMatrix,mt)
 
+lightMatrix.init = function(start,finish) --I'd love to make this a metatable instead
+    for i=start,finish do
+        if not lightMatrix[i] then lightMatrix[i] = {} end
+        for j=start,finish do
+            lightMatrix[i][j] = 0
+        end    
+    end
+end
+lightMatrix.init(0,999)
+
 lightMatrix.on = function(startX,startY,finishX,finishY)
     for i=startX,finishX do
-    if not lightMatrix[i] then lightMatrix[i] = {} end
-    for j=startY,finishY do lightMatrix[i][j] = true end
+    for j=startY,finishY do lightMatrix[i][j] = lightMatrix[i][j] + 1 end
     end
 end
 
 lightMatrix.off = function(startX,startY,finishX,finishY)
     for i=startX,finishX do
     if not lightMatrix[i] then lightMatrix[i] = {} end
-    for j=startY,finishY do lightMatrix[i][j] = false end
+        for j=startY,finishY do 
+            if not lightMatrix[i][j] == 0 then lightMatrix[i][j] = lightMatrix[i][j] - 1 end
+        end
     end
 end
 
 lightMatrix.toggle = function(startX,startY,finishX,finishY)
     for i=startX,finishX do
     if not lightMatrix[i] then lightMatrix[i] = {} end
-    for j=startY,finishY do lightMatrix[i][j] = not lightMatrix[i][j] end
+    for j=startY,finishY do lightMatrix[i][j] = lightMatrix[i][j] + 2 end
     end
 end
 
