@@ -1,19 +1,8 @@
 lightMatrix = {}
 
---[[mt = {__index =
-function(table, key)
-if rawget(table,key) == nil then return 0 else return table[key] end end;
-__newindex = function(table, key)
-    if rawget(table,key) == nil then
-        table[key] = {}
-    end end;
-__tostring = function(table) end
-}]]
---setmetatable(lightMatrix,mt)
-
-lightMatrix.init = function(start,finish) --I'd love to make this a metatable instead
+lightMatrix.init = function(start,finish) --I'd love to make this a metatable instead; but metatable in metatable sounds complicated
     for i=start,finish do
-        if not lightMatrix[i] then lightMatrix[i] = {} end
+        lightMatrix[i] = {}
         for j=start,finish do
             lightMatrix[i][j] = 0
         end    
@@ -46,11 +35,9 @@ end
 lightMatrix.countLights = function()
     local on = 0
     for i=0,999 do --this is lazy but the quickest development time
-        if not lightMatrix[i] then lightMatrix[i] = {} end
         for j=0,999 do
-            if lightMatrix[i][j] then on = on + 1 end
+            on = on + lightMatrix[i][j] end
         end
-    end
     return on
 end
 
