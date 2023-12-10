@@ -8,9 +8,9 @@ for line in io.lines('InputDay5.txt') do
 	local duplicate	= false
 	local vowelCount = 0
 	local dupChar = ''
-	local hasBadSubstring = false
+	local hasBadSubstring
 	hasBadSubstring = string.find(line,'ab') or string.find(line,'cd') or string.find(line,'pq') or string.find(line,'xy')
-	if not hasBadSubstring then 
+	if not hasBadSubstring then
 	repeat
 		i = i + 1
 		char = string.sub(line, i, i)
@@ -32,7 +32,7 @@ print('1) Number of \'good\' lines: ' .. goodLines)
 -- PART 2:
 defaultIndex0Metatable = {__index = 
 	function(table, key) -- rawget bypasses metatables to get 'real value'
-	if rawget(table,key) == nil then return 0 else return table[key] end 
+	if rawget(table,key) == nil then return 0 else return table[key] end
 	end}
 
 function tablizeString(str)
@@ -65,7 +65,7 @@ for line in io.lines('InputDay5.txt') do
 	if duplicateExists then
 	for j=2,#line,1 do -- for each set of 2 chars, if that set already exists and isn't overlapping (j-1)
 			local _2characterString = string.sub(line, j - 1, j) --then we have a duplicate; otherwise, put that string & index in the table
-			prevStrIndex = _2charTable[_2characterString]
+			local prevStrIndex = _2charTable[_2characterString]
 			if prevStrIndex ~= nil and j - 1 ~= prevStrIndex then charPairDup = true; break
 			else _2charTable[_2characterString] = j end
 	end
