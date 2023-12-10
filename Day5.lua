@@ -55,11 +55,11 @@ for line in io.lines('InputDay5.txt') do
 	repeat --see if a letter is dup'd separated by 1 letter
 		iter = iter + 1
 		local currentChar = strTable[iter]
-		local prevChar = strTable[iter - 2] --duplicates in this case are supposed to have 1 letter b/t them
+		local prevChar = strTable[iter - 2]
 		duplicateExists = (currentChar == prevChar) or duplicateExists
 	until duplicateExists == true or iter == #line
 
-	-- the following portion sees if any 2-character string is duplicated:
+	-- the following portion determines if any 2-character string is duplicated:
 	local charPairDup = false
 	local _2charTable = {}
 	if duplicateExists then
@@ -67,7 +67,7 @@ for line in io.lines('InputDay5.txt') do
 			local _2characterString = string.sub(line, j - 1, j) --then we have a duplicate; otherwise, put that string & index in the table
 			local prevStrIndex = _2charTable[_2characterString]
 			if prevStrIndex ~= nil and j - 1 ~= prevStrIndex then charPairDup = true; break
-			else _2charTable[_2characterString] = j end
+			elseif prevStrIndex == nil then _2charTable[_2characterString] = j end
 	end
 	end
 	if duplicateExists and charPairDup then print('This is a good line: ' .. line .. '\n');goodLines = goodLines + 1 end
