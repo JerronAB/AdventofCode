@@ -46,45 +46,29 @@ function tablizeString(str)
 	return stringTable
 end
 
-function prnttbl(tbl)
-	local mstrStr = '{'
-	for key,val in pairs(tbl) do
-		mstrStr = mstrStr .. '[' .. key .. ']=' .. val .. ';' end
-	mstrStr = mstrStr .. '}'
-	print(mstrStr) end
-
 goodLines = 0
 for line in io.lines('InputDay5.txt') do
 	local strTable = tablizeString(line)
-	--test odd and even strings for duplicate letters
+	--this next portion tests for duplicate letters
 	local duplicateExists = false
-	local iter = 1
+	local iter = 0
 	repeat --see if a letter is dup'd separated by 1 letter
 		iter = iter + 1
 		local currentChar = strTable[iter]
 		local prevChar = strTable[iter - 2] --duplicates in this case are supposed to have 1 letter b/t them
 		duplicateExists = (currentChar == prevChar) or duplicateExists
-	until iter == #line
-	--see if any 2-item string is duplicated:
-	--  for this process, I create two tables (odd and even starting places) and cross reference them
-	--  "cross-reference" in this case means "see if they have duplicates that aren't overlapped"
+	until duplicateExists == true or iter == #line
+
+	-- the following portion sees if any 2-character string is duplicated:
 	local charPairDup = false
 	local _2charTable = {}
 	if duplicateExists then
 	for j=2,#line,1 do -- for each set of 2 chars, if that set already exists and isn't overlapping (j-1)
-			local _2characterString = string.sub(line, j - 1, j) --then we have our dup; otherwise, put that string & index in the table
+			local _2characterString = string.sub(line, j - 1, j) --then we have a duplicate; otherwise, put that string & index in the table
 			prevStrIndex = _2charTable[_2characterString]
-			if prevStrIndex ~= nil and j - 1 ~= prevStrIndex then 
-				print('\nCURRENT LINE: ' .. line)
-				print('The following string was already in the table: ' .. _2characterString)
-				--prnttbl(_2charTable)
-				--print('if ' .. j - 1 .. ' DOESN\'T EQUAL ' ..  prevStrIndex)
-				charPairDup = true; 
-				print('Separate character pair duplicate has been matched for these indexes:' .. ' \'' .. _2characterString .. '\' ' .. prevStrIndex .. ' and ' .. j)
-				break
-			else _2charTable[_2characterString] = j --print('Adding the following character string to the table: ' .. _2characterString);
-			end
-		end
+			if prevStrIndex ~= nil and j - 1 ~= prevStrIndex then charPairDup = true; break
+			else _2charTable[_2characterString] = j end
+	end
 	end
 	if duplicateExists and charPairDup then print('This is a good line: ' .. line .. '\n');goodLines = goodLines + 1 end
 end
