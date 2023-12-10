@@ -18,7 +18,6 @@ end
 
 lightMatrix.off = function(startX,startY,finishX,finishY)
     for i=startX,finishX do
-    if not lightMatrix[i] then lightMatrix[i] = {} end
         for j=startY,finishY do 
             if not lightMatrix[i][j] == 0 then lightMatrix[i][j] = lightMatrix[i][j] - 1 end
         end
@@ -27,7 +26,6 @@ end
 
 lightMatrix.toggle = function(startX,startY,finishX,finishY)
     for i=startX,finishX do
-    if not lightMatrix[i] then lightMatrix[i] = {} end
     for j=startY,finishY do lightMatrix[i][j] = lightMatrix[i][j] + 2 end
     end
 end
