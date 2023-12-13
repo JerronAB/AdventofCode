@@ -1,7 +1,18 @@
-function ConvertToBinaryList(int)
+BinaryOnly = {
+	__index = function(table, key) -- rawget bypasses metatables to get 'real value'
+		if rawget(table,key) == nil then return 0 else return table[key] end
+	end;
+	__newindex = function(table, key) --ensures these lists are just 1/0's
+		assert(key == 1 or key == 0, "Non-binary key inserted into list.")
+		return table[key]
+	end
+	}
+
+
+function ConvBinaryList(int)
 	assert(type(int) == "number",'A number must be passed to the convertToBinaryList function. ')
 	local digitList = {}
-	setmetatable(digitList, binaryOnly)
+	--setmetatable(digitList, BinaryOnly)
 	local result = int
 	local remainder
 	print('Starting with integer: ' .. int)
@@ -13,7 +24,7 @@ function ConvertToBinaryList(int)
 		end
 		print('Dividing previous result by 2, and rounding: ' .. result)
 		print('Remainder of that operation: ' .. remainder)
-		table.insert(digitList,1,remainder) --should insert from MSB to LSB
+		table.insert(digitList,remainder) --left to right: LSB to MSB
 	end
 	local prntStr = ''
 	for index,_1_or_0_ in ipairs(digitList) do prntStr = prntStr .. _1_or_0_ .. ' ' end
@@ -21,21 +32,17 @@ function ConvertToBinaryList(int)
 	return digitList
 end
 
-BinaryOnly = {
-	__index = function(table, key) -- rawget bypasses metatables to get 'real value'
-		if rawget(table,key) == nil then return 0 else return table[key] end
-	end;
-	__newindex = function(table, key) --ensures these lists are just 1/0's
-		assert(key == 1 or key == 0, "Non-binary key inserted into list.")
-		return table[key]
+function Compare(operator,list1,list2)
+	assert(string.upper(operator) == 'OR' or operator == 'AND', "Compare must have parameter 'AND' or 'OR'; got " .. operator)
+	local operation
+	if string.upper(operator) == 'AND' then operation = function (_l1,_l2) 
+		if _l1 == 1 and _l2 == 1 then return 1 else return 0 end 
+	else operation = function (_l1,_l2) 
+		if _l1 == 1  or _l2 == 1 then return 1 else return 0 end 
 	end
-	}
-
-function compareAnd(list1,list2)
-	for i=1,#list1
-end
-
-function compareOr(list1,list2)
+	local newBinaryList = {}
+	setmetatable(newBinaryList,BinaryOnly)
+	for i=1,math.max(#list1,#list2) do table.insert(newBinaryList, operation(list1[i],list2[i])) end
 end
 
 function LSHIFT(list)
@@ -47,7 +54,6 @@ end
 function makeNOT(list)
 end
 
-ConvertToBinaryList(3)
-ConvertToBinaryList(8)
---ConvertToBinaryList(50)
---ConvertToBinaryList(101)
+ConvBinaryList(3)
+ConvBinaryList(8)
+Compare(ConvBinaryList(3),ConvBinaryList(8)) --> should be 1101
