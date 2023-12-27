@@ -19,7 +19,7 @@ end
 lightMatrix.off = function(startX,startY,finishX,finishY)
     for i=startX,finishX do
         for j=startY,finishY do 
-            if lightMatrix[i][j] ~= 0 then lightMatrix[i][j] = lightMatrix[i][j] - 1 end
+            if not lightMatrix[i][j] == 0 then lightMatrix[i][j] = lightMatrix[i][j] - 1 end
         end
     end
 end
@@ -58,7 +58,7 @@ function getNumbers(str)
     return tonumber(firstX),tonumber(firstY),tonumber(secondX),tonumber(secondY)
 end
 
-for line in io.lines('InputDay6.txt') do
+for line in io.lines('temp.txt') do
     local firstX,firstY,secondX,secondY = getNumbers(line)
     --print(firstX,firstY,secondX,secondY)
     if string.find(line,'on') then lightMatrix.on(firstX,firstY,secondX,secondY)
