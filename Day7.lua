@@ -11,6 +11,13 @@ BinaryOnly = {
 	end
 	}
 
+function printTable(table)
+	local str = ''
+	for key, value in ipairs(table) do
+		str = str .. tostring(value)
+	end
+	print(str)
+end
 
 function ConvBinaryList(int)
 	print('Running ConvBinaryList for integer ' .. int)
@@ -31,6 +38,7 @@ function ConvBinaryList(int)
 		print('Remainder of that operation: ' .. remainder)
 		table.insert(digitList,remainder) --left to right: LSB to MSB
 	end
+	--printTable(digitList)
 	return digitList
 end
 
