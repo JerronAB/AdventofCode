@@ -13,15 +13,22 @@ Class: EE101
 //setup runs once
 void setup() {
   // initialize digital pin LED_BUILTIN as an output.
-  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(3, OUTPUT);
   Serial.begin(9600); //starts serial comms; sets baud rate to 9600bps
+  Serial.println("Setup complete. \n");
 }
 
 void loop() { //loop is equivalent to main() in most c programs; 
-             //on arduino, it loops forever after setup is run
-  Serial.write("Hello World! \n");     //could also use serial.println
-  digitalWrite(LED_BUILTIN, HIGH);    // turn the LED on (HIGH is the voltage level)
-  delay(1000);                       // wait for a second
-  digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
-  delay(500);                      // wait for a second
+  int i; //i will be used for increment/decrement; start at 0
+  int rampTime = 20; //represents time between 
+  for (int i; i<180; i++) {
+    analogWrite(3, i);
+    delay(rampTime);
+    Serial.println(i);
+  }
+  for (int i = 180; i>0; i--) {
+    analogWrite(3, i);
+    delay(rampTime);
+    Serial.println(i);
+  }
 }
