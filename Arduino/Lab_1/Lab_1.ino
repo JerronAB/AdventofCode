@@ -24,5 +24,4 @@ void loop() { //loop is equivalent to main() in most c programs;
   delay(1000);                       // wait for a second
   digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
   delay(500);                      // wait for a second
-
 }
