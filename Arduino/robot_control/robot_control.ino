@@ -59,12 +59,16 @@ void loop() { //loop is equivalent to main() in most c programs; runs in forever
  Serial.print(" -- Right sensor input: ");
  Serial.print(rightSensorInput);
  if (leftSensorInput == 0 && rightSensorInput == 0) { //testing sensor input
+  straightForward()
  }
  else if (leftSensorInput == 0 && rightSensorInput == 1)  {
+  rightTurn()
  }
  else if (leftSensorInput == 1 && rightSensorInput == 0)  {
  }
+  leftTurn()
  else if (leftSensorInput == 1 && rightSensorInput == 1)  {
+  straightForward()
  }
 }
 // leftServo.write(90); //turns counter-clockwise
