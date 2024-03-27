@@ -1,19 +1,21 @@
 /*
-Goal: Read input from IR sensor, and turn a servo accordingly
-Input: IR sensor, high or low, pin 8
+Goal: Read input from IR sensors, and turn 2 servos accordingly
+Input: IR sensor (high or low)
 Output: IR sensor info & servo behavior
 
-Written By: J. Boling
+Written By: J. Boling & J. Sprague
 Date: 3/4/24
 Class: EE101
 */
 /*
-setup servos + pin modes + serial writeouts
-Read both IRs & save to variables
-Print IRs for debugging
-Decisions: 
-If A == 0 and B == 0, go forward
-Elseif A==1 and B==0, go left
+OUTLINE:
+Setup servos + pin modes + serial writeouts
+Read both sensors & save to variables
+Create functions for left turns and right turns
+Print IR values for debugging
+If leftSensor == 1 and rightSensor == 1, go forward
+Elseif leftSensor == 1 and rightSensor == 0, go left
+Elseif leftSensor == 0 and rightSensor == 1, go right
 */
 
 #include <Servo.h> //include the servo library
@@ -31,18 +33,18 @@ void setup() { //setup runs once
   Serial.println("Setup complete.");
 }
 
- void leftTurn() {
+void leftTurn() {
   rightServo.write(0);
   leftServo.write(0);
- }
- void rightTurn() {
+}
+void rightTurn() {
   rightServo.write(180);
   leftServo.write(180);
- }
- void straightForward() {
+}
+void straightForward() {
   rightServo.write(0);
   leftServo.write(180);
- }
+}
 
 void loop() { //loop is equivalent to main() in most c programs; runs in forever 
  //initialize function? 
@@ -55,10 +57,10 @@ void loop() { //loop is equivalent to main() in most c programs; runs in forever
  Serial.print(leftSensorInput); //these last 2 lines just display the sensor's output */
  Serial.print(" -- Right sensor input: ");
  Serial.print(rightSensorInput);
- if (leftSensorInput == 0 && rightSensorInput == 0) {straightForward();}
+ if      (leftSensorInput == 0 && rightSensorInput == 0) {straightForward();}
  else if (leftSensorInput == 0 && rightSensorInput == 1) {rightTurn();}
- else if (leftSensorInput == 1 && rightSensorInput == 0)  {leftTurn();}
- else if (leftSensorInput == 1 && rightSensorInput == 1)  {straightForward();}
+ else if (leftSensorInput == 1 && rightSensorInput == 0) {leftTurn();}
+ else if (leftSensorInput == 1 && rightSensorInput == 1) {straightForward();}
 }
 //.write(180); //turns counter-clockwise
 //.write(0); //turns clockwise
