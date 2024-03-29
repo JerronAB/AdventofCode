@@ -6,6 +6,12 @@
   --complex if/else statements and switch cases
   --string substitution allowed; "nth index of string" allowed
 
+--instead of general split
+-- find index of all instances of commas
+-- If index is between double quotes (odd on left, even on right) do nothing
+-- else, add to array
+-- split based on character index in array
+
 function nthIndexofString(search_str, within_str, str_number)
     local current_StrNumber = 0
     for i = 1, #within_str do
