@@ -60,7 +60,6 @@ void loop() { //loop is equivalent to main() in most c programs; runs in forever
  if      (leftSensorInput == 0 && rightSensorInput == 0) {straightForward();}
  else if (leftSensorInput == 0 && rightSensorInput == 1) {rightTurn();}
  else if (leftSensorInput == 1 && rightSensorInput == 0) {leftTurn();}
- else if (leftSensorInput == 1 && rightSensorInput == 1) {straightForward();}
 }
 //.write(180); //turns counter-clockwise
 //.write(0); //turns clockwise

@@ -23,7 +23,15 @@ function nthIndexofString(search_str, within_str, str_number)
 end
 
 function splitString(substring,within_str)
-    --find analagous Power Automate function
+    local index = 0
+    local substr_width = #substring
+    local index_array = {}
+    repeat
+        index = index + 1
+        nthIndexofString(substring, within_str, index)
+        
+    until index == #within_str
+    return index_array
 end
 
 csvFile = io.open('csvFile.csv','r')
