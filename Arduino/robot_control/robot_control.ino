@@ -47,8 +47,8 @@ void straightForward() {
 }
 
 void loop() { //loop is equivalent to main() in most c programs; runs in forever 
- //initialize function? 
- bool debug = false;
+ //initialize function?
+ bool debug = true;
  int leftSensorInput; //this will be the RESULT of digitalRead
  int rightSensorInput;
  leftSensorInput = digitalRead(leftSensorPin); //digitalRead gets the sensor value
@@ -57,7 +57,18 @@ void loop() { //loop is equivalent to main() in most c programs; runs in forever
  Serial.print(leftSensorInput); //these last 2 lines just display the sensor's output */
  Serial.print(" -- Right sensor input: ");
  Serial.print(rightSensorInput);
- if      (leftSensorInput == 0 && rightSensorInput == 0) {straightForward();}
+ if (debug) {
+  straightForward();
+  delay(5000);
+  rightServo.write(180);
+  delay(5000);
+  leftServo.write(0);
+  rightTurn();
+  delay(5000);
+  leftTurn();
+  delay(5000);
+  }
+ else if (leftSensorInput == 0 && rightSensorInput == 0) {straightForward();}
  else if (leftSensorInput == 0 && rightSensorInput == 1) {rightTurn();}
  else if (leftSensorInput == 1 && rightSensorInput == 0) {leftTurn();}
 }
