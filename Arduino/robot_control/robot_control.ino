@@ -10,67 +10,65 @@ Class: EE101
 /*
 OUTLINE:
 Setup servos + pin modes + serial writeouts
-Read both sensors & save to variables
 Create functions for left turns and right turns
+Read both sensors & save to variables
 Print IR values for debugging
-If leftSensor == 1 and rightSensor == 1, go forward
+If leftSensor == 0 and rightSensor == 0, go forward
 Elseif leftSensor == 1 and rightSensor == 0, go left
 Elseif leftSensor == 0 and rightSensor == 1, go right
 */
 
 #include <Servo.h> //include the servo library
-Servo leftServo; //initialize a servo object
-Servo rightServo;
-int leftSensorPin = 2; 
-int rightSensorPin = 13; 
+Servo leftServo; //initialize left servo object
+Servo rightServo; //init right servo object
+int leftSensorPin = 2; //these are plugin locations for sensors; left sensor pin
+int rightSensorPin = 13; //right sensor pin
 
 void setup() { //setup runs once
   Serial.begin(9600); // starts serial comms; sets baud rate to 9600bps
-  leftServo.attach(10);
-  rightServo.attach(9);
-  pinMode(leftSensorPin, INPUT); // init pin 8 as an input
-  pinMode(rightSensorPin, INPUT); //init pin 11 as input
-  Serial.println("Setup complete.");
+  leftServo.attach(10); //sets up left servo using servo object
+  rightServo.attach(9); //sets up right servo using servo object
+  pinMode(leftSensorPin, INPUT); // init left sensor's pin as an input
+  pinMode(rightSensorPin, INPUT); //init right sensor's pin as input
+  Serial.println("Setup complete."); //println prints to attached console
 }
 
-void leftTurn() {
+void leftTurn() { //this function performs left turn
   rightServo.write(0);
   leftServo.write(0);
 }
-void rightTurn() {
+void rightTurn() { //this function performs right turn
   rightServo.write(180);
   leftServo.write(180);
 }
-void straightForward() {
+void straightForward() { //this function moves straight forward
   rightServo.write(0);
   leftServo.write(180);
 }
 
 void loop() { //loop is equivalent to main() in most c programs; runs in forever 
- //initialize function?
- bool debug = true;
- int leftSensorInput; //this will be the RESULT of digitalRead
+ bool debug = true; //if this is set to TRUE, it will demo for Dr. Cambron (forward back left right)
+ int leftSensorInput; //these variables will be the RESULT of digitalRead
  int rightSensorInput;
- leftSensorInput = digitalRead(leftSensorPin); //digitalRead gets the sensor value
- rightSensorInput = digitalRead(rightSensorPin);
- Serial.print("Left sensor input: ");
- Serial.print(leftSensorInput); //these last 2 lines just display the sensor's output */
+ leftSensorInput = digitalRead(leftSensorPin); //digitalRead gets the sensor value & stores to variable; left sensor
+ rightSensorInput = digitalRead(rightSensorPin); //right sensor
+ Serial.print("Left sensor input: "); //these last 4 lines just display the sensor's output 
+ Serial.print(leftSensorInput); 
  Serial.print(" -- Right sensor input: ");
  Serial.print(rightSensorInput);
+
  if (debug) {
-  straightForward();
+  straightForward(); //these are functions defined above
   delay(5000);
-  rightServo.write(180);
-  delay(5000);
-  leftServo.write(0);
-  rightTurn();
+  rightServo.write(180); //these values should move us backwards. 
+  leftServo.write(0);   //should work as long as these objects run asynchronously
   delay(5000);
   leftTurn();
+  delay(5000);
+  rightTurn();
   delay(5000);
   }
  else if (leftSensorInput == 0 && rightSensorInput == 0) {straightForward();}
  else if (leftSensorInput == 0 && rightSensorInput == 1) {rightTurn();}
  else if (leftSensorInput == 1 && rightSensorInput == 0) {leftTurn();}
 }
-//.write(180); //turns counter-clockwise
-//.write(0); //turns clockwise
