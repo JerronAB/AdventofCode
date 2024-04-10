@@ -47,7 +47,6 @@ void straightForward() { //this function moves straight forward
 }
 
 void loop() { //loop is equivalent to main() in most c programs; runs in forever 
- bool debug = true; //if this is set to TRUE, it will demo for Dr. Cambron (forward back left right)
  int leftSensorInput; //these variables will be the RESULT of digitalRead
  int rightSensorInput;
  leftSensorInput = digitalRead(leftSensorPin); //digitalRead gets the sensor value & stores to variable; left sensor
