@@ -22,7 +22,7 @@ Elseif leftSensor == 0 and rightSensor == 1, go right
 Servo leftServo; //initialize left servo object
 Servo rightServo; //init right servo object
 int leftSensorPin = 2; //these are plugin locations for sensors; left sensor pin
-int rightSensorPin = 13; //right sensor pin
+int rightSensorPin = 4; //right sensor pin
 
 void setup() { //setup runs once
   Serial.begin(9600); // starts serial comms; sets baud rate to 9600bps
@@ -56,19 +56,9 @@ void loop() { //loop is equivalent to main() in most c programs; runs in forever
  Serial.print(leftSensorInput); 
  Serial.print(" -- Right sensor input: ");
  Serial.print(rightSensorInput);
+Serial.print("\n");
 
- if (debug) {
-  straightForward(); //these are functions defined above
-  delay(5000);
-  rightServo.write(180); //these values should move us backwards. 
-  leftServo.write(0);   //should work as long as these objects run asynchronously
-  delay(5000);
-  leftTurn();
-  delay(5000);
-  rightTurn();
-  delay(5000);
-  }
- else if (leftSensorInput == 0 && rightSensorInput == 0) {straightForward();}
- else if (leftSensorInput == 0 && rightSensorInput == 1) {rightTurn();}
+ if      (leftSensorInput == 1 && rightSensorInput == 1) {straightForward();}
  else if (leftSensorInput == 1 && rightSensorInput == 0) {leftTurn();}
+ else if (leftSensorInput == 0 && rightSensorInput == 1) {rightTurn();}
 }
