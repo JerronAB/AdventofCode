@@ -21,8 +21,8 @@ Elseif leftSensor == 0 and rightSensor == 1, go right
 #include <Servo.h> //include the servo library
 Servo leftServo; //initialize left servo object
 Servo rightServo; //init right servo object
-int leftSensorPin = 2; //these are plugin locations for sensors; left sensor pin
-int rightSensorPin = 4; //right sensor pin
+int leftSensorPin = 6; //these are plugin locations for sensors; left sensor pin
+int rightSensorPin = 2; //right sensor pin
 
 void setup() { //setup runs once
   Serial.begin(9600); // starts serial comms; sets baud rate to 9600bps
@@ -56,9 +56,9 @@ void loop() { //loop is equivalent to main() in most c programs; runs in forever
  Serial.print(leftSensorInput); 
  Serial.print(" -- Right sensor input: ");
  Serial.print(rightSensorInput);
-Serial.print("\n");
+ Serial.print("\n");
 
- if      (leftSensorInput == 1 && rightSensorInput == 1) {straightForward();}
+ if      (leftSensorInput == 0 && rightSensorInput == 0) {straightForward();}
  else if (leftSensorInput == 1 && rightSensorInput == 0) {leftTurn();}
  else if (leftSensorInput == 0 && rightSensorInput == 1) {rightTurn();}
 }
