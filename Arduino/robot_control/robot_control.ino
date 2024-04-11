@@ -54,10 +54,10 @@ void loop() { //loop is equivalent to main() in most c programs; runs in forever
  Serial.print("Left sensor input: "); //these last 4 lines just display the sensor's output 
  Serial.print(leftSensorInput); 
  Serial.print(" -- Right sensor input: ");
- Serial.print(rightSensorInput);
- Serial.print("\n");
+ Serial.print(rightSensorInput); 
+ Serial.print("\n"); //newline
 
- if      (leftSensorInput == 0 && rightSensorInput == 0) {straightForward();}
- else if (leftSensorInput == 1 && rightSensorInput == 0) {leftTurn();}
- else if (leftSensorInput == 0 && rightSensorInput == 1) {rightTurn();}
+ if      (leftSensorInput == 0 && rightSensorInput == 0) {straightForward();} //if both sensors aren't seeing anything, go straight
+ else if (leftSensorInput == 1 && rightSensorInput == 0) {leftTurn();} //if left sensor sees line, turn left
+ else if (leftSensorInput == 0 && rightSensorInput == 1) {rightTurn();} //right sensor sees line, turn right
 }
