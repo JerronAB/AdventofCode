@@ -24,6 +24,10 @@ Servo rightServo; //init right servo object
 int leftSensorPin = 6; //these are plugin locations for sensors; left sensor pin
 int rightSensorPin = 2; //right sensor pin
 
+int clockwise = 55;
+int counter_clkwse = 125;
+int timerCounter = 0;
+
 void setup() { //setup runs once
   Serial.begin(9600); // starts serial comms; sets baud rate to 9600bps
   leftServo.attach(10); //sets up left servo using servo object
@@ -34,21 +38,30 @@ void setup() { //setup runs once
 }
 
 void leftTurn() { //this function performs left turn
-  rightServo.write(0);
-  leftServo.write(0);
+  rightServo.write(55);
+  leftServo.write(55);
+  int timerCounter = 0;
 }
 void rightTurn() { //this function performs right turn
-  rightServo.write(180);
-  leftServo.write(180);
+  rightServo.write(125);
+  leftServo.write(125);
+  int timerCounter = 0;
 }
 void straightForward() { //this function moves straight forward
-  rightServo.write(0);
-  leftServo.write(180);
+  rightServo.write(55);
+  leftServo.write(125);
+  int timerCounter = 0;
 }
+
 
 void loop() { //loop is equivalent to main() in most c programs; runs in forever 
  int leftSensorInput; //these variables will be the RESULT of digitalRead
  int rightSensorInput;
+ timerCounter = timerCounter + 1;
+ /*if (timerCounter >= 300) {
+  clockwise = 80;
+  counter_clkwse = 100;
+ }*/
  leftSensorInput = digitalRead(leftSensorPin); //digitalRead gets the sensor value & stores to variable; left sensor
  rightSensorInput = digitalRead(rightSensorPin); //right sensor
  Serial.print("Left sensor input: "); //these last 4 lines just display the sensor's output 
@@ -60,4 +73,5 @@ void loop() { //loop is equivalent to main() in most c programs; runs in forever
  if      (leftSensorInput == 0 && rightSensorInput == 0) {straightForward();} //if both sensors aren't seeing anything, go straight
  else if (leftSensorInput == 1 && rightSensorInput == 0) {leftTurn();} //if left sensor sees line, turn left
  else if (leftSensorInput == 0 && rightSensorInput == 1) {rightTurn();} //right sensor sees line, turn right
+ else if (leftSensorInput == 1 && rightSensorInput == 1) {straightForward();} 
 }
