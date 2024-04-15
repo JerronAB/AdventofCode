@@ -50,7 +50,6 @@ void rightTurn() { //this function performs right turn
 void straightForward() { //this function moves straight forward
   rightServo.write(55);
   leftServo.write(125);
-  int timerCounter = 0;
 }
 
 
@@ -58,16 +57,22 @@ void loop() { //loop is equivalent to main() in most c programs; runs in forever
  int leftSensorInput; //these variables will be the RESULT of digitalRead
  int rightSensorInput;
  timerCounter = timerCounter + 1;
- /*if (timerCounter >= 300) {
+ if (timerCounter >= 40) {
   clockwise = 80;
   counter_clkwse = 100;
- }*/
+ }
  leftSensorInput = digitalRead(leftSensorPin); //digitalRead gets the sensor value & stores to variable; left sensor
  rightSensorInput = digitalRead(rightSensorPin); //right sensor
  Serial.print("Left sensor input: "); //these last 4 lines just display the sensor's output 
  Serial.print(leftSensorInput); 
  Serial.print(" -- Right sensor input: ");
  Serial.print(rightSensorInput); 
+ Serial.print(" CounterClockwise speed: "); //these last 4 lines just display the sensor's output 
+ Serial.print(counter_clkwse); 
+ Serial.print(" Clockwise speed: ");
+ Serial.print(clockwise); 
+  Serial.print(" Timer: ");
+ Serial.print(timerCounter); 
  Serial.print("\n"); //newline
 
  if      (leftSensorInput == 0 && rightSensorInput == 0) {straightForward();} //if both sensors aren't seeing anything, go straight
