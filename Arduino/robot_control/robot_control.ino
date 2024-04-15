@@ -24,10 +24,6 @@ Servo rightServo; //init right servo object
 int leftSensorPin = 6; //these are plugin locations for sensors; left sensor pin
 int rightSensorPin = 2; //right sensor pin
 
-int clockwise = 55;
-int counter_clkwse = 125;
-int timerCounter = 0;
-
 void setup() { //setup runs once
   Serial.begin(9600); // starts serial comms; sets baud rate to 9600bps
   leftServo.attach(10); //sets up left servo using servo object
@@ -40,12 +36,10 @@ void setup() { //setup runs once
 void leftTurn() { //this function performs left turn
   rightServo.write(55);
   leftServo.write(55);
-  int timerCounter = 0;
 }
 void rightTurn() { //this function performs right turn
   rightServo.write(125);
   leftServo.write(125);
-  int timerCounter = 0;
 }
 void straightForward() { //this function moves straight forward
   rightServo.write(55);
@@ -56,23 +50,12 @@ void straightForward() { //this function moves straight forward
 void loop() { //loop is equivalent to main() in most c programs; runs in forever 
  int leftSensorInput; //these variables will be the RESULT of digitalRead
  int rightSensorInput;
- timerCounter = timerCounter + 1;
- if (timerCounter >= 40) {
-  clockwise = 80;
-  counter_clkwse = 100;
- }
  leftSensorInput = digitalRead(leftSensorPin); //digitalRead gets the sensor value & stores to variable; left sensor
  rightSensorInput = digitalRead(rightSensorPin); //right sensor
  Serial.print("Left sensor input: "); //these last 4 lines just display the sensor's output 
  Serial.print(leftSensorInput); 
  Serial.print(" -- Right sensor input: ");
  Serial.print(rightSensorInput); 
- Serial.print(" CounterClockwise speed: "); //these last 4 lines just display the sensor's output 
- Serial.print(counter_clkwse); 
- Serial.print(" Clockwise speed: ");
- Serial.print(clockwise); 
-  Serial.print(" Timer: ");
- Serial.print(timerCounter); 
  Serial.print("\n"); //newline
 
  if      (leftSensorInput == 0 && rightSensorInput == 0) {straightForward();} //if both sensors aren't seeing anything, go straight
